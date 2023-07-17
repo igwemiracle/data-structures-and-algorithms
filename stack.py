@@ -1,3 +1,4 @@
+#   Using stack to convert Infix to Postfix expression
 def infix_to_postfix(expression):
     # Function to determine the precedence of operators
     def precedence(operator):
@@ -40,6 +41,36 @@ def infix_to_postfix(expression):
 
     return postfix
 
+ans = infix_to_postfix("a+b*(c^d-e)^(f+g*h)-i")
+print("To postfix = ", ans)
+
+#   Using stack to convert Prefix to Infix expression
+
+def PrefixToInfix(expression):
+    #stack container
+    stack = []
+    #Reading the expression from right-to-left
+    exp = expression[::-1]
+    for char in exp:
+        #Check for operand
+        if char.isalnum():
+            stack += char
+        #Check for operator
+        elif char=="(" or char==")" or char=="+" or char=="-" or char=="*" or char=="/":
+            operand1 = stack.pop()
+            operand2 = stack.pop()
+            str = '(' + operand1 + char + operand2 + ')'
+            stack.append(str)
+    return stack.pop()
+
+
+Ques = input("Enter prefix: ")
+answer = PrefixToInfix(Ques)
+print("Infix value is: ", answer)
+
+
+#   Using stack to write an expression that balances brackets
+
 def Balanced_brackets(exp):
     stack = []
     for i in exp:
@@ -63,21 +94,9 @@ def Balanced_brackets(exp):
         return False
     return True
 
-# If A[i] == A[i - 2] and dp[i - 1] > 0
-# extends the alternatice subarray
-# then dp[i] = dp[i - 1] + 1
+print(Balanced_brackets("([{}])"))
 
-# else if A[i] == A[i - 1] + 1,
-# starts the alternatice subarray
-# dp[i] = 2
-
-# else
-# not in the alternatice subarray
-# dp[i] = -1
-
-
-
-# ❌Find the Maximum Achievable Number
+# Find the Maximum Achievable Number
 class Solution:
     def alternatingSubarray(self, A: list[int]) -> int:
         n = len(A)
