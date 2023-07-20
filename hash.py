@@ -81,6 +81,8 @@ root = create_tree(parent)
  
 print("Inorder traversal of constructed tree:")
 inorder(root)
+# Time complexity:  O(n), since we need to visit each node of the tree exactly once. 
+# Space complexity: O(h), where h is the height of the tree
 print("")
 
 
