@@ -33,7 +33,3 @@ TheQueue.print_queue()
 print("The size of the queue is",TheQueue.size())
 
 
-
-from collections import deque
-
-print(help(deque.extendleft))
