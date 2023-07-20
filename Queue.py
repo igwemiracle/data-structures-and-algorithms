@@ -6,7 +6,7 @@ class TreeNode:
         self.right = None
         self.left = None
 #Using Queue data structure to keep track of inserted nodes
-#by creating a Complete Binary Tree
+#from creating a Complete Binary Tree
 class CompleteBinaryTree:
     def __init__(self) -> None:
         self.root = None
