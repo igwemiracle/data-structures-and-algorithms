@@ -181,6 +181,11 @@ print("\nAfter deleting node with key", key_to_delete, ":")
 print_level_order(root)
 print("\n")
 
+
+
+
+
+
 class BinaryTree(object):
     def __init__(self, root):
         self.root = Node(root)
@@ -336,7 +341,7 @@ tree.root.right = Node(3)
 tree.root.left.left = Node(4)
 tree.root.left.right = Node(5)
 # print(tree.size())
-print("The size of Tree is",tree.size_(tree.root))
+print("The size of Tree is ",tree.size_(tree.root))
 print("")
 
 
