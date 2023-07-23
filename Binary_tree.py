@@ -1,6 +1,3 @@
-# A BINARY TREE: is a tree data structure in which each node has at most two children, which are referred to as the left child and the right child.
-# LEAF NODE: Node without any children
-# ANCESTOR: this are all the nodes, from the child down to the root node.
 class Stack(object):
     def __init__(self):
         self.items = []
@@ -61,15 +58,9 @@ class Node(object):
         self.left = None
         self.right = None
 
-# Algorithm:
-
-# Starting at the root, find the deepest and rightmost node in the binary
-# tree and the node which we want to delete. 
-# Replace the deepest rightmost node’s data with the node to be deleted. 
-# Then delete the deepest rightmost node.
-
 from collections import deque
-
+#Finds the deepest and rightmost node in binary tree and replace 
+#with the node we want to delete
 class TreeNode:
     def __init__(self, data):
         self.data = data
@@ -161,6 +152,54 @@ def print_level_order(root):
         if node.right:
             queue.append(node.right)
 
+#Check for duplicates using tree serialization and hashing
+#Using post-order traversal
+def serialize_subtree(root, Hash_table):
+    if not root:
+        return "*"
+    L_serialized = serialize_subtree(root.left, Hash_table)
+    R_serialized = serialize_subtree(root.right, Hash_table)
+    #Post_order = Left -> Right -> Root
+    Serialized = L_serialized + "," + R_serialized + "," + str(root.data)
+
+    if Serialized in Hash_table:
+        Hash_table[Serialized] += 1
+    else:
+        Hash_table[Serialized] = 1
+    return Serialized
+
+def contains_duplicate_subtree(root):
+    subtree_map = {}
+    serialize_subtree(root, subtree_map)
+    
+    for sub_key, sub_value in subtree_map.items():
+        if sub_value >= 2 and sub_key != "*":
+            return True
+    return False
+
+root = TreeNode('A')
+root.left = TreeNode('B')
+root.right = TreeNode('C')
+root.left.left = TreeNode('D')
+root.left.right = TreeNode('E')
+root.right.right = TreeNode('B')
+root.right.right.right = TreeNode('E')
+root.right.right.left= TreeNode('D')
+print(contains_duplicate_subtree(root))
+# root = TreeNode(1)
+# root.left = TreeNode(2)
+# root.right = TreeNode(3)
+# root.left.left = TreeNode(4)
+# root.left.right = TreeNode(2)
+# root.right.right = TreeNode(5)
+# print(contains_duplicate_subtree(root))
+print("")
+
+
+
+
+
+
 # Example usage:
 root = TreeNode(1)
 root.left = TreeNode(2)
@@ -180,10 +219,6 @@ root = delete_node_from_tree(root, key_to_delete)
 print("\nAfter deleting node with key", key_to_delete, ":")
 print_level_order(root)
 print("\n")
-
-
-
-
 
 
 class BinaryTree(object):
