@@ -195,11 +195,6 @@ print(contains_duplicate_subtree(root))
 # print(contains_duplicate_subtree(root))
 print("")
 
-
-
-
-
-
 # Example usage:
 root = TreeNode(1)
 root.left = TreeNode(2)
