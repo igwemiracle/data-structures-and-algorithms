@@ -177,6 +177,7 @@ def contains_duplicate_subtree(root):
             return True
     return False
 
+
 root = TreeNode('A')
 root.left = TreeNode('B')
 root.right = TreeNode('C')
@@ -186,6 +187,8 @@ root.right.right = TreeNode('B')
 root.right.right.right = TreeNode('E')
 root.right.right.left= TreeNode('D')
 print(contains_duplicate_subtree(root))
+# TIME COMPLEXITY: O(n)
+# AUXILIARY SPACE: O(n)
 # root = TreeNode(1)
 # root.left = TreeNode(2)
 # root.right = TreeNode(3)
