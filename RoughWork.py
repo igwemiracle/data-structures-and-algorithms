@@ -51,25 +51,6 @@ class DoublyLinkedList:
         if new_node.next is not None:
             new_node.next.prev = new_node
 
-    def InsertBefore(self,nxt_node,data):
-        pass
-  
-    def find_size(self):
-        count = 0
-        cur = self.head
-        while cur:
-            cur = cur.next
-            count += 1
-        return count
-    def max_node(self):
-        cur = self.head
-        maxx = self.head    
-        while cur:
-            if cur.data > maxx.data:
-                maxx = cur
-            cur = cur.next
-        return maxx.data
-
 class Stack:
     def __init__(self):
         self.head = Node('Head')
@@ -196,11 +177,27 @@ class Conversion:
 			print(ch, end=" ")
 
 
+# Find the Maximum Achievable Number
+class Solution:
+    def alternatingSubarray(self, A: list[int]) -> int:
+        n = len(A) #length is 6
+        res = -1
+        dp = -1
+        for i in range(1, n):
+            if dp > 0 and A[i] == A[i - 2]:
+                dp += 1
+            else:
+                if A[i] == A[i - 1] + 1:
+                    dp = 2
+                else:
+                    -1
+            res = max(res, dp)
+        return res
 
+result = Solution()
+a = result.alternatingSubarray([ -5, -1, -1, 2, -2, -3 ])
+print(a)
 
-
-
-        
 
 # ❌# Driver code
 # if __name__ == '__main__':
@@ -210,7 +207,6 @@ class Conversion:
 # 	# Function call
 # 	obj.infixToPostfix(exp)
           
-
 
 # ❌if __name__ == "__main__":
 #     stack = Stack()
@@ -225,6 +221,9 @@ class Conversion:
     #     print(f"Pop: {remove}")
     # print(f"Stack: {stack}")
 
+
+
+
 # ❌double = DoublyLinkedList()
 # node = Node("A")
 # node2 = Node("B")
@@ -235,19 +234,6 @@ class Conversion:
 # double.add_at_front("At_Front")
 # # double.add_in_btwn(node2,"In btwn")
 # double.InsertBefore(node2, "G")
-
-# double.append(1)
-# double.append(23)
-# double.append(39)
-# double.append(40)
-# # print("The size of the list is ",double.find_size())
-# print("maximum node is ",double.max_node())
-# double.print_list()
-
-        
-# 1  23  39  40
-
-
 
 # double.add_at_front("A")
 # double.add_at_front("B")
