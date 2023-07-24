@@ -18,7 +18,7 @@ class DoublyLinkedList:
             new_node.prev = self.tail
             self.tail.next = new_node
             self.tail = new_node
-        
+
     def print_list(self):
         current = self.head
         while current:
@@ -50,9 +50,6 @@ class DoublyLinkedList:
             else:
                 unique_values.add(current.data)
                 current = current.next
-
-
-
 
 
 # Example usage
