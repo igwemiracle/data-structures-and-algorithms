@@ -3,6 +3,43 @@ class Node:
         self.data = data
         self.next = None
         self.prev = None
+        self.left = None
+        self.right = None
+
+
+def check_for_mirror_tree(root1, root2):
+    if root1 is None and root2 is None:
+        return True
+    if root1 is None or root2 is None:
+        return False
+
+    if root1.data != root2.data:
+        return False
+
+    lchild = check_for_mirror_tree(root1.left, root2.right)
+    rchild = check_for_mirror_tree(root1.right, root2.left)
+
+    return lchild and rchild
+
+
+roott1 = Node(1)
+roott2 = Node(1)
+
+roott1.left = Node(2)
+roott1.right = Node(3)
+roott1.left.left = Node(4)
+roott1.left.right = Node(5)
+
+roott2.left = Node(3)
+roott2.right = Node(2)
+roott2.right.left = Node(5)
+roott2.right.right = Node(4)
+
+if check_for_mirror_tree(roott1, roott2):
+    print("Yes")
+else:
+    print("No")
+
 
 class DoublyLinkedList:
     def __init__(self):
@@ -10,14 +47,14 @@ class DoublyLinkedList:
 
     def append(self, data):
         if self.head is None:
-            new_node = Node(data)  
-            self.head = new_node  
-        else:                     
-            new_node = Node(data) 
-            cur = self.head        
-            while cur.next:        
-                cur = cur.next     
-            cur.next = new_node    
+            new_node = Node(data)
+            self.head = new_node
+        else:
+            new_node = Node(data)
+            cur = self.head
+            while cur.next:
+                cur = cur.next
+            cur.next = new_node
             new_node.prev = cur
 
     def print_list(self):
@@ -39,11 +76,11 @@ class DoublyLinkedList:
             curr.prev = new_node
             self.head = new_node
 
-    def add_in_btwn(self,prev_node,data):
+    def add_in_btwn(self, prev_node, data):
         if prev_node is None:
             print("This node does not exist")
             return
-        
+
         new_node = Node(data)
         new_node.next = prev_node.next
         prev_node.next = new_node
@@ -51,10 +88,12 @@ class DoublyLinkedList:
         if new_node.next is not None:
             new_node.next.prev = new_node
 
+
 class Stack:
     def __init__(self):
         self.head = Node('Head')
         self.size = 0
+
     def __str__(self) -> str:
         cur = self.head.next
         out = ""
@@ -62,21 +101,24 @@ class Stack:
             out += str(cur.data) + "->"
             cur = cur.next
         return out[:-2]
-    
+
     def getSize(self):
         return self.size
+
     def isEmpty(self):
         return self.size == 0
+
     def peek(self):
         if self.isEmpty():
             raise Exception("Peeking from an empty stack")
         return self.head.next.data
+
     def push(self, value):
         new_node = Node(value)
         new_node.next = self.head.next
         self.head.next = new_node
         self.size += 1
-    
+
     def pop(self):
         if self.isEmpty():
             raise Exception("poping from an empty stack")
@@ -84,103 +126,104 @@ class Stack:
         self.head.next = self.head.next.next
         return remove.data
 
+
 class Conversion:
 
-	# Constructor to initialize the class variables
-	def __init__(self, capacity):
-		self.top = -1
-		self.capacity = capacity
-		
-		# This array is used a stack
-		self.array = []
-		
-		# Precedence setting
-		self.output = []
-		self.precedence = {'+': 1, '-': 1, '*': 2, '/': 2, '^': 3}
+    # Constructor to initialize the class variables
+    def __init__(self, capacity):
+        self.top = -1
+        self.capacity = capacity
 
-	# Check if the stack is empty
-	def isEmpty(self):
-		return True if self.top == -1 else False
+        # This array is used a stack
+        self.array = []
 
-	# Return the value of the top of the stack
-	def peek(self):
-		return self.array[-1]
+        # Precedence setting
+        self.output = []
+        self.precedence = {'+': 1, '-': 1, '*': 2, '/': 2, '^': 3}
 
-	# Pop the element from the stack
-	def pop(self):
-		if not self.isEmpty():
-			self.top -= 1
-			return self.array.pop()
-		else:
-			return "$"
+    # Check if the stack is empty
+    def isEmpty(self):
+        return True if self.top == -1 else False
 
-	# Push the element to the stack
-	def push(self, op):
-		self.top += 1
-		self.array.append(op)
+    # Return the value of the top of the stack
+    def peek(self):
+        return self.array[-1]
 
-	# A utility function to check is the given character
-	# is operand
-	def isOperand(self, ch):
-		return ch.isalpha()
+    # Pop the element from the stack
+    def pop(self):
+        if not self.isEmpty():
+            self.top -= 1
+            return self.array.pop()
+        else:
+            return "$"
 
-	# Check if the precedence of operator is strictly
-	# less than top of stack or not
-	def notGreater(self, i):
-		try:
-			a = self.precedence[i]
-			b = self.precedence[self.peek()]
-			return True if a <= b else False
-		except KeyError:
-			return False
+    # Push the element to the stack
+    def push(self, op):
+        self.top += 1
+        self.array.append(op)
 
-	# The main function that
-	# converts given infix expression
-	# to postfix expression
-	def infixToPostfix(self, exp):
+    # A utility function to check is the given character
+    # is operand
+    def isOperand(self, ch):
+        return ch.isalpha()
 
-		# Iterate over the expression for conversion
-		for i in exp:
-			
-			# If the character is an operand,
-			# add it to output
-			if self.isOperand(i):
-				self.output.append(i)
+    # Check if the precedence of operator is strictly
+    # less than top of stack or not
+    def notGreater(self, i):
+        try:
+            a = self.precedence[i]
+            b = self.precedence[self.peek()]
+            return True if a <= b else False
+        except KeyError:
+            return False
 
-			# If the character is an '(', push it to stack
-			elif i == '(':
-				self.push(i)
+    # The main function that
+    # converts given infix expression
+    # to postfix expression
+    def infixToPostfix(self, exp):
 
-			# If the scanned character is an ')', pop and
-			# output from the stack until and '(' is found
-			elif i == ')':
-				while((not self.isEmpty()) and
-					self.peek() != '('):
-					a = self.pop()
-					self.output.append(a)
-				if (not self.isEmpty() and self.peek() != '('):
-					return -1
-				else:
-					self.pop()
+        # Iterate over the expression for conversion
+        for i in exp:
 
-			# An operator is encountered
-			else:
-				while(not self.isEmpty() and self.notGreater(i)):
-					self.output.append(self.pop())
-				self.push(i)
+            # If the character is an operand,
+            # add it to output
+            if self.isOperand(i):
+                self.output.append(i)
 
-		# Pop all the operator from the stack
-		while not self.isEmpty():
-			self.output.append(self.pop())
+            # If the character is an '(', push it to stack
+            elif i == '(':
+                self.push(i)
 
-		for ch in self.output:
-			print(ch, end=" ")
+            # If the scanned character is an ')', pop and
+            # output from the stack until and '(' is found
+            elif i == ')':
+                while ((not self.isEmpty()) and
+                        self.peek() != '('):
+                    a = self.pop()
+                    self.output.append(a)
+                if (not self.isEmpty() and self.peek() != '('):
+                    return -1
+                else:
+                    self.pop()
+
+            # An operator is encountered
+            else:
+                while (not self.isEmpty() and self.notGreater(i)):
+                    self.output.append(self.pop())
+                self.push(i)
+
+        # Pop all the operator from the stack
+        while not self.isEmpty():
+            self.output.append(self.pop())
+
+        for ch in self.output:
+            print(ch, end=" ")
 
 
 # Find the Maximum Achievable Number
 class Solution:
     def alternatingSubarray(self, A: list[int]) -> int:
-        n = len(A) #length is 6
+        n = len(A)  # length is 6
         res = -1
         dp = -1
         for i in range(1, n):
@@ -194,8 +237,9 @@ class Solution:
             res = max(res, dp)
         return res
 
+
 result = Solution()
-a = result.alternatingSubarray([ -5, -1, -1, 2, -2, -3 ])
+a = result.alternatingSubarray([-5, -1, -1, 2, -2, -3])
 print(a)
 
 
@@ -206,7 +250,7 @@ print(a)
 
 # 	# Function call
 # 	obj.infixToPostfix(exp)
-          
+
 
 # ❌if __name__ == "__main__":
 #     stack = Stack()
@@ -215,13 +259,10 @@ print(a)
 #     print("The head is:",stack.head.data)
 #     print(f"stack: {stack}")
 
-
-    # for _ in range(1, 6):
-    #     remove = stack.pop()
-    #     print(f"Pop: {remove}")
-    # print(f"Stack: {stack}")
-
-
+# for _ in range(1, 6):
+#     remove = stack.pop()
+#     print(f"Pop: {remove}")
+# print(f"Stack: {stack}")
 
 
 # ❌double = DoublyLinkedList()
