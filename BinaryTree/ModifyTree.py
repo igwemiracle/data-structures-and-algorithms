@@ -31,8 +31,6 @@ def PreorderTraversal(root):
 
 
 if __name__ == "__main__":
-    # Create the binary tree manually for demonstration purposes
-    # You can modify this section to build the binary tree dynamically if needed.
     root = TreeNode('A')
     root.left = TreeNode('B')
     root.right = TreeNode('C')
